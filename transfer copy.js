@@ -4,16 +4,15 @@ const KuromojiAnalyzer = require("kuroshiro-analyzer-kuromoji");
 const Kuroshiro = require("kuroshiro")
 const kuroshiro = new Kuroshiro();
 
-
-
 async function transfer(str){
- 
-  return  kuroshiro.convert(str, { to: "hiragana" });;
+  kuroshiro.init(new KuromojiAnalyzer())
+  .then(function () {
+      return kuroshiro.convert(str, { to: "hiragana" });;
+  })
 
 }
 
 async function processLineByLine() {
-   await kuroshiro.init(new KuromojiAnalyzer());
   const fileStream = fs.createReadStream('Untitled-spreadsheet-Sheet1.csv');
 
   const rl = readline.createInterface({
